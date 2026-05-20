@@ -1,0 +1,483 @@
+*{ margin: 0; padding: 0; box-sizing: border-box; }
+
+
+/* 1. Fix the Logo Container */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0; 
+    background: transparent; /* Ensure no white box is hiding the purple */
+    z-index: 10;
+}
+
+.stepped-bar {
+    height: 40px;
+    background-color: #9b8abf; /* Your Purple */
+    width: 100%;
+    position: relative;
+    
+    /* This creates the "Down-then-Up" shape */
+    /* 0% 100% is bottom left | 15% 100% is where it stays down | 20% 0% is where it steps up */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 22% 100%, 18% 0, 0 0);
+}
+
+/* 3. If you want it to look exactly like the image with the rounded notch: */
+.stepped-bar {
+    height: 20px;
+    background: green;
+    margin-top: -10px; /* Pulls it closer to the logo */
+}
+
+/* The Rounded Corner Trick */
+.stepped-bar::before {
+    content: "";
+    position: absolute;
+    top: -40px; /* Height of the taller section */
+    left: 0;
+    width: 18%; /* Match this to where your logo ends */
+    height: 40px;
+    background: green;
+    border-bottom-right-radius: 25px; /* Creates that smooth 'down' curve */
+}
+
+/* The "Up" Curve */
+.stepped-bar::after {
+    content: "";
+    position: absolute;
+    top: -25px;
+    left: 18%;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border-bottom-left-radius: 20px;
+    box-shadow: -10px 10px 0 0 green;
+}
+.logo img {
+    height: 70px; /* Shrinking the logo slightly helps it feel less bulky */
+    width: auto;
+}
+
+.brand-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;       /* Lowered size: 1.6 was likely too loud */
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: 0.5px;   /* Added a tiny bit of space between letters */
+    line-height: 1;
+    white-space: nowrap;
+    /* This makes the text feel more integrated and less like a "block" */
+    border-left: 2px solid #ddd; 
+    padding-left: 12px;
+}
+
+/* Update the main header to remove the old flat border */
+.main-header {
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: sans-serif;
+    /* Remove border-bottom: 1px solid #ddd; */
+}
+
+
+
+/* Adjust your nav-container to make room for the 'step' */
+.nav-container {
+    height: 90px; /* Slightly taller to accommodate the design */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2; /* Ensures text stays above the purple shape */
+}
+/* Desktop Links */
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links > li { position: relative; }
+
+.nav-links a {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #000;
+    transition: 0.3s;
+}
+
+/* Hover Effect: Blue Background, White Text */
+.nav-links a:hover, .submenu li a:hover {
+    background-color: green;
+    color: #fff;
+}
+
+/* Dropdown logic for Desktop */
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+    list-style: none;
+}
+
+.has-dropdown:hover .submenu { display: block; }
+
+/* Mobile Hamburger Style */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: #333;
+}
+
+/* Mobile Sidebar Styles */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%; /* Hidden off-screen */
+    width: 280px;
+    height: 100%;
+    background: #1a1a1a; /* Dark background like your 3rd image */
+    z-index: 2000;
+    transition: 0.4s;
+    padding-top: 60px;
+}
+
+.mobile-sidebar.active { left: 0; }
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 35px;
+    color: white;
+    cursor: pointer;
+}
+
+.mobile-links { list-style: none; }
+.mobile-links a {
+    padding: 15px 25px;
+    display: block;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid #333;
+}
+
+.mobile-submenu {
+    display: none;
+    background: #333;
+}
+
+/* Responsive Breakpoint */
+@media (max-width: 992px) {
+    .desktop-nav { display: none; }
+    .hamburger { display: flex; }
+}
+
+
+
+.main-footer {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 60px 20px 20px 20px;
+    font-family: 'Inter', sans-serif; /* Using that clean font we talked about */
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-section h3, .footer-section h4 {
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tagline {
+    font-style: italic;
+    color: #bbb;
+    margin-bottom: 15px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a, .contact-info a {
+    color: #bbb;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover, .contact-info a:hover {
+    color: #007bff; /* Blue hover to match your buttons */
+}
+
+.disclaimer-text {
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 1.5;
+}
+
+/* Bottom Bar Styling */
+.footer-bottom {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.dev-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.dev-link:hover {
+    text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-section {
+        margin-bottom: 20px;
+    }
+}
+
+.footer-socials {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.footer-socials a {
+    color: #bbb; /* Matches your other links */
+    font-size: 1.5rem; /* Makes icons a good size */
+    transition: color 0.3s, transform 0.3s;
+}
+
+.footer-socials a:hover {
+    color: #007bff; /* Your brand blue */
+    transform: translateY(-3px); /* Subtle lift effect */
+}
+
+/* Centers icons on mobile */
+@media (max-width: 768px) {
+    .footer-socials {
+        justify-content: center;
+    }
+}
+
+/*header footer complete*/
+
+
+/* Container for consistent width */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.about-us-page {
+    background-color: #ffffff;
+    padding-bottom: 80px;
+}
+
+/* Hero Style */
+.about-hero {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.about-hero h1 {
+    font-size: 3rem;
+    color: #1a1a1a;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.underline {
+    width: 60px;
+    height: 4px;
+    background: #2e7d32;
+    margin: 0 auto 40px;
+}
+
+.about-intro {
+    text-align: left;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.about-intro p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 25px;
+}
+/*mission section*/
+.mission-section {
+    background-color: #f4fbf4; /* Very light green */
+    padding: 60px 0;
+}
+
+.mission-card {
+    background: white;
+    padding: 50px;
+    border-radius: 15px;
+    border-right: 8px solid #2e7d32;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.mission-card h2 {
+    font-size: 2rem;
+    color: #2e7d32;
+    margin-bottom: 20px;
+}
+
+.mission-card p {
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.7;
+}
+/*managemnet card */
+
+.management-section {
+    background-color: #f4fbf4; /* Very light green */
+    padding: 60px 0;
+}
+
+.management-card {
+    background: white;
+    padding: 50px;
+    border-radius: 15px;
+    border-left: 8px solid #2e7d32;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.management-card h2 {
+    font-size: 2rem;
+    color: #2e7d32;
+    margin-bottom: 20px;
+}
+
+.management-card p {
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.7;
+}
+/* Vision Card */
+.vision-section {
+    background-color: #f4fbf4; /* Very light green */
+    padding: 60px 0;
+}
+
+.vision-card {
+    background: white;
+    padding: 50px;
+    border-radius: 15px;
+    border-left: 8px solid #2e7d32;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.vision-card h2 {
+    font-size: 2rem;
+    color: #2e7d32;
+    margin-bottom: 20px;
+}
+
+.vision-card p {
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.7;
+}
+
+/* Collage Section */
+.collage-section {
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+}
+
+.image-collage {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on PC */
+    gap: 20px;
+}
+
+.collage-item {
+    overflow: hidden;
+    border-radius: 10px;
+    height: 250px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.collage-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.collage-item:hover img {
+    transform: scale(1.1);
+}
+
+/* RESPONSIVE DESIGN (SEO Friendly) */
+@media (max-width: 900px) {
+    .image-collage {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on Tablets */
+    }
+    .about-hero h1 { font-size: 2.2rem; }
+}
+
+@media (max-width: 600px) {
+    .image-collage {
+        grid-template-columns: 1fr; /* 1 column on Mobile */
+    }
+    .vision-card { padding: 30px; }
+    .about-hero { padding: 50px 0; }
+}
