@@ -481,3 +481,17 @@
     .vision-card { padding: 30px; }
     .about-hero { padding: 50px 0; }
 }
+
+
+/*seo changes*/
+
+.footer-links a, .contact-info a, .tagline {
+    color: #e0e0e0; /* Was #bbb, now much brighter */
+}
+.disclaimer-text {
+    color: #d1d1d1; /* Was #888, now readable */
+}
+
+.footer-bottom{
+    color: white;
+}
